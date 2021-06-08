@@ -1,0 +1,113 @@
+{% extends 'store/main.html' %}
+{% block style %}E-commerce{% endblock  %}
+{% load static %}
+{% block content %}
+<style>
+
+#fh6 {
+ padding: 2px 15px;
+ color: #4d0er;
+ text-align: center;
+ font-weight: normal;
+}
+
+#fh2{
+ padding: 2px 15px;
+ color: #ff4d4d;
+ text-align: center;
+}
+
+/* Styling h1 and links
+––––––––––––––––––––––––––––––––– */
+
+.starrating > input {display: none;}  /* Remove radio buttons */
+
+.starrating > label:before { 
+  content: "\f005"; /* Star */
+  margin: 2px;
+  font-size: 2em;
+  font-family: FontAwesome;
+  display: inline-block; 
+}
+
+.starrating > label
+{
+  color: #222222; /* Start color when not clicked */
+}
+
+.starrating > input:checked ~ label
+{ color: #ffca08 ; } /* Set yellow color when star checked */
+
+.starrating > input:hover ~ label
+{ color: #ffca08 ;  } /* Set yellow color when star hover */
+
+
+</style>
+
+
+	<div class="row" style="padding-top:170px;width:100%;">
+		<div class="col-lg-4 pb-5" style="margin:auto;">
+			<img class="thumbnail" style="width:90%;height:250px;" src="{{products.imageURL}}">
+		</div>
+
+		<div class="col-lg-6" style="">
+			<div class="box-element product">
+				<h6>Name: <strong>{{products.name}}</strong></h6>
+				<h4 style="display: inline-block;">Price: <strong>Rs {{products.price}}</strong></h4>
+				<hr>
+				<button data-product="{{products.id}}" data-action="add" class="btn btn-outline-dark add-btn update-cart">Add to Cart</button>
+			</div>  
+	    </div>
+
+	</div>
+
+
+
+<hr />
+
+{% if request.user.is_authenticated %}
+
+<h2 id="fh2">WE APPRECIATE YOUR RATINGS & REVIEWS!</h2>
+<h6 id="fh6">Your review will help us to improve our products quality, and customer services.</h6>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xl-7 col-lg-9 col-d-auto mt-5 mb-5">
+
+      <!--<form action="{% url 'viewdetail' products.id %}" method="post">-->
+      <form action="" method="POST" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+
+ 
+<div class="container">
+        <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+            <input type="radio" id="star5" name="ratings" value="5" /><label for="star5" title="5 star"></label>
+            <input type="radio" id="star4" name="ratings" value="4" /><label for="star4" title="4 star"></label>
+            <input type="radio" id="star3" name="ratings" value="3" /><label for="star3" title="3 star"></label>
+            <input type="radio" id="star2" name="ratings" value="2" /><label for="star2" title="2 star"></label>
+            <input type="radio" id="star1" name="ratings" value="1" /><label for="star1" title="1 star"></label>
+        </div>
+  </div>
+
+        <textarea style="margin-top:5px;border:1px solid black;" id="textarea" type="text" name="description" class="form-control" rows="2" placeholder="Place Your Reviews"></textarea>
+        <button id="result-1" type="submit" style="margin-top:10px;margin-left:5px;" name="bid" class="btn btn-lg btn-dark col-12 p-3">Submit</button>
+      </form>
+<br>
+<br>
+<br>
+
+    </div>
+  </div>
+</div>
+
+    {% for review in reviews %}
+      <div class="container" style="word-wrap: break-word;">
+      <hr />
+			<h2>{{review.profile}}<br><small>Ratings: {{review.ratings}}/5</small><br><span style="font-size:15px;">Reviews: {{review.description}}</span></h2>
+      <hr />
+      </div>
+    {% endfor %}
+
+{% endif %}
+
+{% endblock content %}

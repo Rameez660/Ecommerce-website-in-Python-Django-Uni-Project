@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Home</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css1/bootstrap.min.css' %}">
+    <!-- owl css -->
+    <link rel="stylesheet" href="{% static 'css1/owl.carousel.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'css1/style1.css' %}">
+    <!-- responsive-->
+    <link rel="stylesheet" href="{% static 'css1/responsive.css' %}">
+    <!-- awesome fontfamily -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
+	</script>
+
+</head>
+<!-- body -->
+
+<body class="main-layout">
+    <!-- loader  -->
+<!--
+	<div class="loader_bg">
+        <div class="loader"><img src="{% static 'images1/loading.gif' %}" alt="" /></div>
+    </div>
+-->
+
+    <div class="wrapper">
+    <!-- end loader -->
+
+     <div class="sidebar">
+            <!-- Sidebar  -->
+            <nav id="sidebar">
+
+                <div id="dismiss">
+                    <i class="fa fa-arrow-left"></i>
+                </div>
+
+                <ul class="list-unstyled components">
+
+                    <li class="active">
+                        <a href="{% url 'store' %}">Home</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'aboutus' %}">About</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'contactus' %}">Contact Us</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'handlelogin' %}">Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'handlesignup' %}">Register</a>
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+
+    <div id="content">
+    <!-- header -->
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="full">
+                        <a class="logo" href="{% url 'store' %}"><img src="{% static 'images1/logo1.png' %}" alt="#" /></a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="full">
+                        <div class="right_header_info">
+                            <ul>
+                                <li class="dinone d-none d-md-none d-lg-block"><a style="font-weight:bold;" href="{% url 'store' %}">Home</a></li>
+                                <li class="dinone d-none d-md-none d-lg-block"><a style="font-weight:bold;" href="{% url 'aboutus' %}">About</a></li>
+                                <li class="dinone d-none d-md-none d-lg-block"><a style="font-weight:bold;" href="{% url 'contactus' %}">Contact</a></li>
+
+<!--
+                                <li class="dinone">Contact Us : <img style="margin-right: 15px;margin-left: 15px;" src="{% static 'images1/phone_icon.png' %}" alt="#"><a href="#">987-654-3210</a></li>
+                                <li class="dinone"><img style="margin-right: 15px;" src="{% static 'images1/mail_icon.png' %}" alt="#"><a href="#">demo@gmail.com</a></li>
+                                <li class="dinone"><img style="margin-right: 15px;height: 21px;position: relative;top: -2px;" src="{% static 'images1/location_icon.png' %}" alt="#"><a href="#">104 New york , USA</a></li>
+                                <li><img style="margin-right: 15px;" src="{% static 'images1/search_icon.png' %}" alt="#"></li>
+-->
+<!--
+                                <li class="dinone text-center">
+                                    <div class="container-fluid">
+                                        <form class="d-flex" style="height:58px;" action="{% url 'search' %}" method="get">
+                                        <input class="form-control me-2"  type="search" placeholder="Search Your Results" aria-label="Search" name="query" id="query">
+                                        <button class="btn btn-outline-success" type="submit" style="height:33px;"><img src="{% static 'images1/search_icon.png' %}" alt="#"></button>
+                                        </form>
+                                    </div>
+                                </li>
+-->
+                                <li class="button_user">
+                  {% if user.is_authenticated %}
+        
+                        <div class="dropdown bg-dark">
+                            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <b>{{request.user.first_name}} {{request.user.last_name}}</b>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" style="color:black;font-weight:bold;" href="{% url 'handlelogout' %}">Logout</a>
+                            </div>
+                        </div>
+
+	              {% else %}
+
+						 <a class="button" href="{% url 'handlelogin' %}">Login</a>
+						 <a class="button" href="{% url 'handlesignup' %}">Register</a>
+
+	              {% endif %}
+								</li>
+                                
+								<li>
+									<a href="{% url 'cart' %}">
+										<p id="cart-total" style="position:absolute;top:6px;"><span style="margin-left:11px;">{{cartItems}}</span></p>
+										<img style="width:30px;" id="cart-icon" src="{% static 'images/cart.png' %}">
+									</a>
+								</li>
+                                
+								<li>
+                                    <button type="button" id="sidebarCollapse">
+                                        <img src="{% static 'images1/menu_icon.png' %}" alt="#">
+                                    </button>
+                                </li>
+                            </ul>
+<!--
+                            <ul>
+                                <li class="text-center d-block d-lg-none">
+                                    <div class="container-fluid">
+                                        <form class="d-flex" style="height:58px;" action="{% url 'search' %}" method="get">
+                                        <input class="form-control me-2"  type="search" placeholder="Search Your Results" aria-label="Search" name="query" id="query">
+                                        <button class="btn btn-outline-success" type="submit" style="height:33px;"><img src="{% static 'images1/search_icon.png' %}" alt="#"></button>
+                                        </form>
+                                    </div>
+                                </li> 
+                            </ul>
+-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- end header -->
+
+            {% block content %}
+            {% endblock content %}
+
+    <!-- footer -->
+    <footer style="color:white">
+        <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                
+                <div class="row m-5">
+                            <div class="col-lg-4 col-md-6">
+                                <h3 style="color:white;font-weight:bold;">About Us</h3>
+                                <p>Welcome to Online Food Ordering Application. “Pakistan's Fast Food cuisine” Restaurant. We opened our doors to customers in May 2021 serving a blend of the finest Pakistan's Fast Food cuisine.</p>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <h3 style="color:white;font-weight:bold;">Contact information</h3>
+                                <p class="lead" style="color:white">ABC XYZ Street, Karachi, Pakistan</p>
+                                <p class="lead" style="color:white"><a href="#" style="color:white">+92 123456789</a></p>
+                                <p><a href="#" style="color:white"> info@foodorderingapp.com</a></p>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <h3 style="color:white;font-weight:bold;">Opening hours</h3>
+                                <p><span class="text-color">Sunday: </span>Closed</p>
+                                <p><span class="text-color">Mon-Wed :</span> 9:Am - 10PM</p>
+                                <p><span class="text-color">Thu-Fri :</span> 9:Am - 10PM</p>
+                                <p><span class="text-color">Sat :</span> 5:PM - 10PM</p>
+                            </div>
+                        </div>
+
+                    <div class="col-md-12">
+                        <div class="footer_logo">
+                          <a href="{% url 'store' %}"><img src="{% static 'images1/logo1.png' %}" alt="logo" /></a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <ul class="lik">
+                            <li> <a style="color:white;font-weight:bold;" href="{% url 'store' %}">Home</a></li>
+                            <li> <a style="color:white;font-weight:bold;" href="{% url 'aboutus' %}">About</a></li>
+                            <li> <a style="color:white;font-weight:bold;" href="{% url 'contactus' %}">Contact us</a></li>
+                            <li> <a style="color:white;font-weight:bold;" href="{% url 'handlelogin' %}">Login</a></li>
+                            <li> <a style="color:white;font-weight:bold;" href="{% url 'handlesignup' %}">Register</a></li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="copyright" style="background:#191918;">
+                <div class="container">
+                    <p style="color:white;">©Copyright 2021 All Rights are Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end footer -->
+
+    </div>
+    </div>
+    <div class="overlay"></div>
+    <!-- Javascript files-->
+    <script src="{% static 'js1/jquery.min.js' %}"></script>
+    <script src="{% static 'js1/popper.min.js' %}"></script>
+    <script src="{% static 'js1/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js1/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js1/custom.js' %}"></script>
+    <script src="{% static 'js1/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    
+
+	<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+
+     <script src="js/jquery-3.0.0.min.js"></script>
+   <script type="text/javascript">
+        $(document).ready(function() {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function() {
+                $('#sidebar').removeClass('active');
+                $('.overlay').removeClass('active');
+            });
+
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar').addClass('active');
+                $('.overlay').addClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+    </script>
+
+    <style>
+    #owl-demo .item{
+        margin: 3px;
+    }
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    </style>
+
+      <script>
+
+         $(document).ready(function() {
+           var owl = $('.owl-carousel');
+           owl.owlCarousel({
+             margin: 10,
+             nav: true,
+             loop: true,
+             responsive: {
+               0: {
+                 items: 1
+               },
+               600: {
+                 items: 2
+               },
+               1000: {
+                 items: 5
+               }
+             }
+           })
+         })
+
+
+      </script>
+
+</body>
+
+</html>

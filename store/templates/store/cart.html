@@ -1,0 +1,53 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+	<div class="row" style="margin-top:200px;width:100%;">
+
+<table class="table col-lg-10" style="margin:auto;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col"><a  class="btn btn-outline-light" href="{% url 'store' %}">&#x2190; Continue Shopping</a></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+      <td><h5>Total:<strong> Rs {{order.get_cart_total|floatformat:2}}</strong></h5></td>
+      <td><a  style="float:right; margin:5px;" class="btn btn-dark" href="{% url 'checkout' %}">Checkout Here</a></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<table class="table table-hover table-dark col-lg-10" style="margin:auto;">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Item</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for item in items %}
+    <tr>
+      <th><a href="{% url 'viewdetail' item.product.id %}"><img style="width:80px;height:50px;" class="row-image" src="{{item.product.imageURL}}"></a></th>
+      <td>{{item.product.name}}</td>
+      <td>Rs {{item.product.price|floatformat:2}}</td>
+      <td>
+					<div style="flex:1">
+							<img data-product="{{item.product.id}}" data-action="add" class="chg-quantity update-cart" style="width:20px;cursor:pointer;" src="{% static  'images/arrow-up.png' %}">
+							<p class="quantity" style="height:10px;padding-bottom:22px;">{{item.quantity}}</p>
+							<img data-product="{{item.product.id}}" data-action="remove" class="chg-quantity update-cart" style="width:20px;cursor:pointer;" src="{% static  'images/arrow-down.png' %}">
+					</div>
+	  </td>
+      <td>Rs {{item.get_total|floatformat:2}}</td>
+    </tr>
+		{% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
